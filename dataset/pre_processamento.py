@@ -1,4 +1,8 @@
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import numpy as np
+
 batch1 = pd.read_csv('../dataset/batch1.dat', sep=' ', header=None)
 batch2 = pd.read_csv('../dataset/batch2.dat', sep=' ', header=None)
 batch3 = pd.read_csv('../dataset/batch3.dat', sep=' ', header=None)
@@ -9,22 +13,22 @@ batch7 = pd.read_csv('../dataset/batch7.dat', sep=' ', header=None)
 batch8 = pd.read_csv('../dataset/batch8.dat', sep=' ', header=None)
 batch9 = pd.read_csv('../dataset/batch9.dat', sep=' ', header=None)
 batch10 = pd.read_csv('../dataset/batch10.dat', sep=' ', header=None)
-pd.set_option('display.max_rows', 10)
-pd.set_option('display.max_columns', 10)
+pd.set_option('display.max_rows', 15)
+pd.set_option('display.max_columns', 15)
 
 def transformar_data(linhas):
-    gas_type, concentration = linhas[0].split(';')
-    concentration = float(concentration)
-    gas_type = int(gas_type)
+    gas, concentracao = linhas[0].split(';')
+    concentracao = float(concentracao)
+    gas = int(gas)
 
     features = {}
 
     for i in range(1, len(linhas)):
         if pd.notna(linhas[i]):
-            feature_index, feature_value = linhas[i].split(':')
-            features[f"feature_{int(feature_index)}"] = float(feature_value)
+            index, valor = linhas[i].split(':')
+            features[f"feature_{int(index)}"] = float(valor)
 
-    return {"gas_type": gas_type, "concentration": concentration, **features}
+    return {"gas": gas, "concentracao": concentracao, **features}
 batch1 = batch1.apply(transformar_data, axis=1, result_type='expand')
 batch2 = batch2.apply(transformar_data, axis=1, result_type='expand')
 batch3 = batch3.apply(transformar_data, axis=1, result_type='expand')
@@ -35,5 +39,5 @@ batch7 = batch7.apply(transformar_data, axis=1, result_type='expand')
 batch8 = batch8.apply(transformar_data, axis=1, result_type='expand')
 batch9 = batch9.apply(transformar_data, axis=1, result_type='expand')
 batch10 = batch10.apply(transformar_data, axis=1, result_type='expand')
+all_batch = pd.concat([batch1, batch2, batch3, batch4,batch5,batch6,batch7,batch8,batch9,batch10], ignore_index=True)
 #print(batch1)
-#print(batch1['gas_type'].value_counts().sort_index())
