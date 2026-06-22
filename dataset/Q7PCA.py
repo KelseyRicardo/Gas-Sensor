@@ -1,10 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from pre_processamento import X_ss, X_mm, all_batch_numbers
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.neighbors import KNeighborsClassifier
-
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -14,25 +15,21 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay
 )
 
-from pre_processamento import X_ss, X_mm, all_batch_numbers
-
 # Escolha qual normalização deseja usar
 X = X_ss          # Z-Score
-# X = X_mm        # Min-Max
+#X = X_mm        # Min-Max
 
 y = all_batch_numbers['gas']
 
 
 # TREINO E TESTE
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.30,
-    random_state=42,
-    stratify=y
+X_train_raw, X_test_raw, y_train, y_test = train_test_split(
+    X, y, test_size=0.30, random_state=42, stratify=y
 )
-
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train_raw)
+X_test = scaler.transform(X_test_raw)
 # ==========================
 # MODELO SEM PCA
 # ==========================
