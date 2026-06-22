@@ -15,7 +15,7 @@ for gas in gases:
         dados_gas['feature_100'],#100#11
         label=f'{gas}', alpha=0.7
     )
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
+plt.xlabel('Feature 9')
+plt.ylabel('Feature 100')
 plt.legend()
 plt.show()
