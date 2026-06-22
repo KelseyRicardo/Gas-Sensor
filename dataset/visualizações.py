@@ -20,7 +20,7 @@ ax[0].bar(nome_dados,n_dados, color='#8494B8')
 ax[0].tick_params(rotation=45)
 ax[0].set_title('Amostras por Batch')
 
-ax[1].bar(nome_gas,n_gas, color=['#F54927','#EBAF38','#B1D431','#31D4B1','#313FD4','#C72CB2'])
+ax[1].bar(nome_gas,n_gas, color=['#BA3838','#59339E','#596BA8','#3D828A','#327346','#AB7620'])
 ax[1].tick_params(rotation=45)
 ax[1].set_title('Amostras por Gás')
 
