@@ -39,6 +39,7 @@ ax[2].set_xlabel('Cluster DBScan')
 ax[2].set_ylabel('Gás Real')
 ax[2].set_title('Sem normalização')
 plt.show()
+print(ct)
 
 
 neighbors = NearestNeighbors(n_neighbors=10)
